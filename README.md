@@ -18,7 +18,7 @@ are available.
 After downloading the data, read it into a table and create a new table with the date and time: 
 ```
 tbl <- read.table(file = file, dec = ".", stringsAsFactors = FALSE, 
-          colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric",             "numeric", "numeric", "numeric"), header = TRUE, sep = ";", na.strings = "?")
+          colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"), header = TRUE, sep = ";", na.strings = "?")
 
 # subset data to and remove original data table to free space
 data <- filter(tbl, Date %in% c("1/2/2007", "2/2/2007"))
