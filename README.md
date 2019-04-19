@@ -3,8 +3,8 @@
 This Exploratory Data Analysis assignment uses data from
 the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
 Learning Repository</a>, a popular repository for machine learning
-datasets. In particular, we used the "Individual household
-electric power consumption Data Set".
+datasets. The "Individual household
+electric power consumption Data Set" was used in this project.
 
 ## Data handling
 
@@ -15,11 +15,12 @@ one household with a one-minute sampling rate over a period of almost
 4 years. Different electrical quantities and some sub-metering values
 are available.
 
-
+After downloading the data, read it into a table and create a new table with the date and time: 
 ```
-tbl <- read.table(file = file, dec = ".", stringsAsFactors = FALSE, colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"), header = TRUE, sep = ";", na.strings = "?")
+tbl <- read.table(file = file, dec = ".", stringsAsFactors = FALSE, 
+          colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric",             "numeric", "numeric", "numeric"), header = TRUE, sep = ";", na.strings = "?")
 
-# subset data to free space
+# subset data to and remove original data table to free space
 data <- filter(tbl, Date %in% c("1/2/2007", "2/2/2007"))
 rm(tbl)
 
@@ -53,27 +54,82 @@ varies over a 2-day period in February, 2007. The task was to
 create the plots below, all of which were constructed
 using the base plotting system.
 
+Each plot has it's own R script and plots 2-4 all required a new date-time column, refer to their scripts to see how the date-time conversion was made.
+
 The plots should look like the plots from this GitHub repository:
 [https://github.com/rdpeng/ExData_Plotting1](https://github.com/rdpeng/ExData_Plotting1)
 
 
 ### Plot 1
 
+```
+png("plot1.png", width=480, height=480)
+hist(data$Global_active_power, col = "red", main = "Global Active Power", 
+     xlab = "Global Active Power (kilowatts)", ylim = c(0,1200), 
+     xlim = c(0,6), breaks = 12)
+dev.off()
+```
 
 ![plot1](plot1.png) 
 
 
 ### Plot 2
 
+```
+png("plot2.png", width=480, height=480)
+plot(x=data$date_time, y = data$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+dev.off()
+```
+
 ![plot2](plot2.png) 
 
 
 ### Plot 3
 
+```
+png("plot3.png", width=480, height=480)
+with(data, 
+     { plot(x=date_time, y = Sub_metering_1, type="l", col = "black", xlab="", ylab="Energy sub metering")
+       lines(x=date_time, y = Sub_metering_2, type="l", col = "red")
+       lines(x=date_time, y = Sub_metering_3, type="l", col = "blue")
+       legend("topright", lty = "solid", col = c("black", "red", "blue"), 
+                  legend = c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"))
+     })
+dev.off()
+```
+
 ![plot3](plot3.png) 
 
 
 ### Plot 4
+
+```
+png("plot4.png", width=480, height=480)
+par(mfrow = c(2,2))
+
+# Top-left
+# Line, x = time_date, y = Global Active Power
+plot(x=data$date_time, y = data$Global_active_power, type="l", col = "black", xlab="", ylab="Global active power")
+
+# Top-right
+# Line, x = time_date, y = Voltage, ylab: datetime
+plot(x=data$date_time, y = data$Voltage, type="l", col = "black", ylab="Voltage", xlab = "datetime")
+
+# Bottom-left
+# Plot 3
+with(data, 
+     { plot(x=date_time, y = Sub_metering_1, type="l", col = "black", xlab="", ylab="Energy sub metering")
+       lines(x=date_time, y = Sub_metering_2, type="l", col = "red")
+       lines(x=date_time, y = Sub_metering_3, type="l", col = "blue")
+       legend("topright", lty = "solid", col = c("black", "red", "blue"), 
+                      legend = c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"))
+     })
+
+# Bottom-right
+# Line, x = time_date, y = Global_reactive_power, ylim[0.0:0.5], ylab: datetime
+plot(x=data$date_time, y = data$Global_reactive_power, type="l", col = "black", ylab="Global_reactive_power", xlab = "datetime")
+dev.off()
+```
 
 ![plot4](plot4.png) 
 
