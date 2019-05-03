@@ -1,3 +1,5 @@
+Link to repo: https://github.com/lizthree/ExData_Plotting1
+
 ## Introduction
 
 This Exploratory Data Analysis assignment uses data from
