@@ -1,4 +1,4 @@
-Link to repo: https://github.com/lizthree/ExData_Plotting1
+<a href="https://github.com/lizthree/ExData_Plotting1">Link to Github Repo</a>
 
 ## Introduction
 
